@@ -23,6 +23,16 @@ public class GameManager : MonoBehaviour
         } 
     
     }
-
+    public void DefinirTamanhoGrid(int largura, int altura)
+    {
+        larguraGrid = largura;
+        alturaGrid = altura;
+    }
     
+    public void DefinirVelocidadeCobra(float velocidade)
+    {
+        velocidadeCobra = velocidade; // Define a velocidade da cobra
+    }
+
+
 }
