@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class maca : MonoBehaviour, IGerar
+public class maca : MonoBehaviour
 {
     // Gera uma posição aleatória no mapa.
     public Vector2 Posicionar(Vector2 posicao)
