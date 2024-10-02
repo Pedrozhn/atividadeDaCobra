@@ -6,15 +6,16 @@ using UnityEngine;
 
 public class maca : MonoBehaviour
 {
-    // Gera uma posição aleatória no mapa.
-    public Vector2 Posicionar(Vector2 posicao)
+    private Vector2 novaPosicao; // Variável que armazena a nova posição da comida
+
+    // Gera uma posição aleatória que não esteja sobre a cobra
+    public void GerarPosicao()
     {
-        int x = Random.Range(0, GameManager.Instancia.larguraGrid);
-        int y = Random.Range(0, GameManager.Instancia.alturaGrid);
-        return new Vector2(x, y);
+        // Lista de todas as posições possíveis no grid
+        List<Vector2> posicoesDisponiveis = new List<Vector2>();
+
+
     }
-
-
 
 
 }
