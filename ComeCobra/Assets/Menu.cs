@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    public InputField campoLargura;  // Campo de texto para a largura do grid
-    public InputField campoAltura;   // Campo de texto para a altura do grid
-    public InputField campoVelocidade;  // Campo de texto para a velocidade da cobra
+    public InputField Largura;  // Campo de texto para a largura do grid
+    public InputField Altura;   // Campo de texto para a altura do grid
+    public InputField Velocidade;  // Campo de texto para a velocidade da cobra
 
     // Aplica as configurações definidas pelo jogador no menu
     public void AplicarConfiguracoes()
     {
-        int largura = int.Parse(campoLargura.text);
-        int altura = int.Parse(campoAltura.text);
-        float velocidade = float.Parse(campoVelocidade.text);
+        int largura = int.Parse(Largura.text);
+        int altura = int.Parse(Altura.text);
+        float velocidade = float.Parse(Velocidade.text);
 
         // Define as configurações no Gerenciador do Jogo
         GameManager.Instancia.DefinirTamanhoGrid(largura, altura);
