@@ -15,9 +15,9 @@ public class maca : MonoBehaviour
         List<Vector2> posicoesDisponiveis = new List<Vector2>();
 
         // Preenche a lista com todas as posições do grid
-        for (int x = 0; x < GerenciadorJogo.Instancia.larguraGrid; x++)
+        for (int x = 0; x < GameManager.Instancia.larguraGrid; x++)
         {
-            for (int y = 0; y < GerenciadorJogo.Instancia.alturaGrid; y++)
+            for (int y = 0; y < GameManager.Instancia.alturaGrid; y++)
             {
                 Vector2 posicao = new Vector2(x, y);
 
