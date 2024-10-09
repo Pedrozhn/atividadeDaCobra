@@ -24,8 +24,14 @@ public class Cobra : MonoBehaviour
     {
         if (viva)
         {
-            Movimentar();
-            VerificarColisao();
+            temporizadorMovimento += Time.deltaTime;
+            if (temporizadorMovimento >= GameManager.Instancia.velocidadeCobra)
+            {
+                AtualizarDirecao();  // Atualiza a direção com base na entrada do jogador
+                Movimentar();
+                VerificarColisao();
+                temporizadorMovimento = 0;
+            }
         }
     }
     private void AtualizarDirecao()
