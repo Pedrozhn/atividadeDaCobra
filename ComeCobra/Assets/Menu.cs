@@ -1,34 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class Menu : MonoBehaviour
 {
-    [SerializeField]
-    public TMP_InputField Largura;  // Campo de texto para a largura do grid
-    [SerializeField]
-    public TMP_InputField Altura;   // Campo de texto para a altura do grid
-    [SerializeField]
-    public TMP_InputField Velocidade;  // Campo de texto para a velocidade da cobra
+    [SerializeField] private TMP_InputField largura;  // Campo de texto para a largura do grid
+    [SerializeField] private TMP_InputField altura;   // Campo de texto para a altura do grid
+    [SerializeField] private TMP_InputField velocidade;  // Campo de texto para a velocidade da cobra
 
-    // Aplica as configurações definidas pelo jogador no menu
-    public void AplicarConfiguracoes()
+    public void Aplicar()
     {
-        int largura = int.Parse(Largura.text);
-        int altura = int.Parse(Altura.text);
-        float velocidade = float.Parse(Velocidade.text);
+        int larg = int.Parse(largura.text);
+        int alt = int.Parse(altura.text);
+        float vel = float.Parse(velocidade.text);
 
-        // Define as configurações no Gerenciador do Jogo
-        GameManager.Instancia.DefinirTamanhoGrid(largura, altura);
-        GameManager.Instancia.DefinirVelocidadeCobra(velocidade);
+        GameManager.Instancia.DefinirTamanhoGrid(larg, alt);
+        GameManager.Instancia.DefinirVelocidadeCobra(vel);
     }
-    // Método chamado pelo botão
-    public void IniciarJogo()
-    {
-        // Substitua "NomeDaCena" pelo nome da cena que você deseja carregar
-        SceneManager.LoadScene("JogoCobra");
-    }
+
+public void IniciarJogo()
+{
+    SceneManager.LoadScene("JogoCobra");
+}
 }
