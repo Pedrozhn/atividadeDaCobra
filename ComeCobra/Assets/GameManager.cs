@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     // Singleton que gerencia o estado do jogo
     public static GameManager Instancia;
-
-    public int larguraGrid = 20;  // Largura do mapa
-    public int alturaGrid = 20;   
-    public float velocidadeCobra = 0.2f; 
+    private int larguraGrid;  // Armazena a largura do grid
+    private int alturaGrid;   // Armazena a altura do grid
+    private float velocidadeCobra;  // Armazena a velocidade da cobra
     private void Awake()  
     {        
         if (Instancia == null)
@@ -33,6 +34,9 @@ public class GameManager : MonoBehaviour
     {
         velocidadeCobra = velocidade; // Define a velocidade da cobra
     }
+
+  
+
     // Método que retorna uma posição na borda do outro lado se a cobra atravessar os limites do mapa
     public Vector2 MudarPosicao(Vector2 posicao)
     {
