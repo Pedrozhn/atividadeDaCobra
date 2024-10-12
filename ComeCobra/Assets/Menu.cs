@@ -15,5 +15,11 @@ public class Menu : MonoBehaviour
         float vel = float.Parse(velocidade.text);
 
         GameManager.Instancia.DefinirTamanhoGrid(larg, alt);
+        GameManager.Instancia.DefinirVelocidadeCobra(vel);
     }
+
+public void IniciarJogo()
+{
+    SceneManager.LoadScene("JogoCobra");
+}
 }
