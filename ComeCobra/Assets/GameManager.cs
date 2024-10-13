@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour
 {
     // Singleton que gerencia o estado do jogo
     public static GameManager Instancia;
-    private int larguraGrid;  // Armazena a largura do grid
-    private int alturaGrid;   // Armazena a altura do grid
-    private float velocidadeCobra;  // Armazena a velocidade da cobra
+    public int larguraGrid;  // Armazena a largura do grid
+    public int alturaGrid;   // Armazena a altura do grid
+    public float velocidadeCobra;  // Armazena a velocidade da cobra
     private void Awake()  
     {        
         if (Instancia == null)
