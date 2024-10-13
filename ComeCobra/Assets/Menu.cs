@@ -20,6 +20,8 @@ public class Menu : MonoBehaviour
 
 public void IniciarJogo()
 {
-    SceneManager.LoadScene("JogoCobra");
+        GameManager.Instancia.IniciarJogo();  // Chama o método de iniciar o jogo
+
+        SceneManager.LoadScene("JogoCobra");
 }
 }

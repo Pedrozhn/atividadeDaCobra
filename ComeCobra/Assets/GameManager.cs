@@ -6,23 +6,37 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Singleton que gerencia o estado do jogo
+    [SerializeField]
+    private GameObject prefabMaca;  // Prefab da maçã
+    private GameObject macaInstanciada;  // Referência da maçã instanciada
+
     public static GameManager Instancia;
     public int larguraGrid;  // Armazena a largura do grid
     public int alturaGrid;   // Armazena a altura do grid
     public float velocidadeCobra;  // Armazena a velocidade da cobra
-    private void Awake()  
+
+ private void Awake()  
     {        
         if (Instancia == null)
         {           
             Instancia = this;
             DontDestroyOnLoad(gameObject); 
-     }
-    else
-     {            Destroy(gameObject);  
+         }
+           else
+            {           
+             Destroy(gameObject);  
     
-        } 
+            } 
     
+    }
+
+    public void IniciarJogo()
+    {
+        if (macaInstanciada == null)  // Garante que a maçã não seja instanciada duas vezes
+        {
+            macaInstanciada = Instantiate(prefabMaca);
+            macaInstanciada.GetComponent<maca>().GerarEPosicionar();
+        }
     }
     public void DefinirTamanhoGrid(int largura, int altura)
     {

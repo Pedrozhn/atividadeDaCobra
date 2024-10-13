@@ -24,13 +24,13 @@ public class maca : MonoBehaviour
                 // Variável para indicar se a posição está ocupada
                 bool posicaoOcupada = false;
 
-                // Verifica manualmente, sem o uso de Count ou break
+                
                 foreach (var segmento in Cobra.Instancia.segmentosCobra)
                 {
                     if (segmento.x == posicao.x && segmento.y == posicao.y)
                     {
                         posicaoOcupada = true;
-                        // Não usamos break, mas mantemos o loop para verificar todos os segmentos
+                      
                     }
                 }
 
