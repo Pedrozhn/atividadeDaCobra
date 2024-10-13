@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class Cobra : MonoBehaviour
 {
-    public List<Vector2> segmentosCobra = new List<Vector2>();  // Lista que armazena os segmentos da cobra
-    public Vector2 direcao = Vector2.right;  // Direção inicial da cobra
+     public Vector2 direcao = Vector2.right;  // Direção inicial da cobra
     private float temporizadorMovimento;  // Temporizador que controla o tempo entre movimentos
     private bool viva = true;  // Verifica se a cobra está viva
     public static Cobra Instancia;
 
+    [SerializeField]
+    private Transform segmentoPrefab;
+
+
+    public List<Transform> segmentosCobra = new List<Transform>();  // Segmentos da cobra
+    public List<Vector2> segmentosCobra = new List<Vector2>();  // Lista que armazena os segmentos da cobra
+
     private void Awake()
     {
-        Instancia = this; // Define esta instância como a instância da cobra
+        if (Instancia == null) // Define esta instância como a instância da cobra
+        {
+            Instancia = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        } 
+    }
+
+    public void Inicializar()
+    {
+        segmentosCobra.Clear();  // Limpa os segmentos anteriores
+        transform.position = Vector3.zero;  // Define a posição inicial da cobra
+        AdicionarSegmento();  // Adiciona o primeiro segmento
     }
     private void Start()
     {
@@ -20,6 +40,22 @@ public class Cobra : MonoBehaviour
         segmentosCobra.Add(new Vector2(10, 10));
     }
 
+    public void AdicionarSegmento()
+    {
+        Transform novoSegmento = Instantiate(segmentoPrefab);
+        novoSegmento.position = segmentosCobra.Count == 0
+           if (segmentosCobra.Count == 0)
+        {
+            // Se não houver segmentos, posiciona na mesma posição da cabeça
+            novoSegmento.position = transform.position;
+        }
+        else
+        {
+            // Se já houver segmentos, posiciona no mesmo lugar do último segmento
+            novoSegmento.position = segmentosCobra[segmentosCobra.Count - 1].position;
+        }
+        segmentosCobra.Add(novoSegmento);
+    }
     private void Update()
     {
         if (viva)
