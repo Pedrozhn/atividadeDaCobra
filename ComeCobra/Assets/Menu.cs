@@ -18,10 +18,36 @@ public class Menu : MonoBehaviour
         GameManager.Instancia.DefinirVelocidadeCobra(vel);
     }
 
+<<<<<<< Updated upstream
 public void IniciarJogo()
 {
         GameManager.Instancia.IniciarJogo();  // Chama o método de iniciar o jogo
 
         SceneManager.LoadScene("JogoCobra");
 }
+=======
+    public void IniciarJogo()
+    {
+        DestroyTodosObjetosNaCena();
+
+        GameManager.Instancia.IniciarJogo();  // Chama o método de iniciar o jogo
+
+        SceneManager.LoadScene("JogoCobra");
+    }
+
+    private void DestroyTodosObjetosNaCena()
+    {
+        // Encontra todos os objetos do tipo GameObject
+        GameObject[] objetos = FindObjectsOfType<GameObject>();
+
+        // Itera sobre todos os objetos e os destrói, exceto o Menu
+        foreach (GameObject objeto in objetos)
+        {
+            if (objeto != this.gameObject) // Evita destruir o próprio Menu
+            {
+                Destroy(objeto);
+            }
+        }
+    }
+>>>>>>> Stashed changes
 }
