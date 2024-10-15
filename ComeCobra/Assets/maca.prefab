@@ -133,5 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8ba508fe48064e801b9caa487f26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  macaPrefab: {fileID: 8821712088557040670}
+  prefabMaca: {fileID: 8821712088557040670}
   limiteMapa: {x: 0, y: 0}
+  segmentosCobra: []

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cobra : MonoBehaviour
 {
-     public Vector2 direcao = Vector2.right;  // Direção inicial da cobra
+    public Vector2 direcao = Vector2.right;  // Direção inicial da cobra
     private float temporizadorMovimento;  // Temporizador que controla o tempo entre movimentos
     private bool viva = true;  // Verifica se a cobra está viva
     public static Cobra Instancia;
@@ -12,9 +12,7 @@ public class Cobra : MonoBehaviour
     [SerializeField]
     private Transform segmentoPrefab;
 
-
-    public List<Transform> segmentosCobra = new List<Transform>();  // Segmentos da cobra
-    public List<Vector2> segmentosCobra = new List<Vector2>();  // Lista que armazena os segmentos da cobra
+    public List<Transform> segmentosCobra = new List<Transform>();  // Lista que armazena os segmentos da cobra
 
     private void Awake()
     {
@@ -25,7 +23,7 @@ public class Cobra : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        } 
+        }
     }
 
     public void Inicializar()
@@ -34,17 +32,18 @@ public class Cobra : MonoBehaviour
         transform.position = Vector3.zero;  // Define a posição inicial da cobra
         AdicionarSegmento();  // Adiciona o primeiro segmento
     }
+
     private void Start()
     {
         // Define a posição inicial da cobra no meio 
-        segmentosCobra.Add(new Vector2(10, 10));
+        segmentosCobra.Add(Instantiate(segmentoPrefab, new Vector3(10, 10, 0), Quaternion.identity)); // Instancia o segmento
     }
 
     public void AdicionarSegmento()
     {
         Transform novoSegmento = Instantiate(segmentoPrefab);
-        novoSegmento.position = segmentosCobra.Count == 0
-           if (segmentosCobra.Count == 0)
+
+        if (segmentosCobra.Count == 0)
         {
             // Se não houver segmentos, posiciona na mesma posição da cabeça
             novoSegmento.position = transform.position;
@@ -54,8 +53,10 @@ public class Cobra : MonoBehaviour
             // Se já houver segmentos, posiciona no mesmo lugar do último segmento
             novoSegmento.position = segmentosCobra[segmentosCobra.Count - 1].position;
         }
-        segmentosCobra.Add(novoSegmento);
+
+        segmentosCobra.Add(novoSegmento); // Adiciona o novo segmento à lista
     }
+
     private void Update()
     {
         if (viva)
@@ -70,6 +71,7 @@ public class Cobra : MonoBehaviour
             }
         }
     }
+
     private void AtualizarDirecao()
     {
         if (Input.GetKeyDown(KeyCode.W))
@@ -81,29 +83,29 @@ public class Cobra : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D))
             direcao = Vector2.right;  // Move para a direita
     }
+
     private void Movimentar()
     {
-        Vector2 novaPosicao = segmentosCobra[0] + direcao; // Define a nova posição da cabeça da cobra
+        Vector2 novaPosicao = (Vector2)segmentosCobra[0].position + direcao; // Define a nova posição da cabeça da cobra
 
         // Move todos os segmentos para a posição do segmento anterior
         for (int i = segmentosCobra.Count - 1; i > 0; i--)
         {
-            segmentosCobra[i] = segmentosCobra[i - 1];
+            segmentosCobra[i].position = segmentosCobra[i - 1].position;
         }
 
-        segmentosCobra[0] = novaPosicao; // Atualiza a posição da cabeça
-        VerificarLimites(novaPosicao); // Verifica se a cobra ultrapassou os limites do mapa }
-
-      
+        segmentosCobra[0].position = novaPosicao; // Atualiza a posição da cabeça
+        VerificarLimites(novaPosicao); // Verifica se a cobra ultrapassou os limites do mapa
     }
+
     private void VerificarColisao()
     {
-        Vector2 posicaoCabeca = segmentosCobra[0];
+        Vector2 posicaoCabeca = segmentosCobra[0].position;
 
         // Verifica se a cobra colidiu consigo mesma sem usar Contains
         for (int i = 1; i < segmentosCobra.Count; i++)
         {
-            if (segmentosCobra[i].x == posicaoCabeca.x && segmentosCobra[i].y == posicaoCabeca.y)
+            if (segmentosCobra[i].position.x == posicaoCabeca.x && segmentosCobra[i].position.y == posicaoCabeca.y)
             {
                 Debug.Log("A cobra se comeu e morreu :C");
                 viva = false;  // Cobra morre
@@ -115,29 +117,29 @@ public class Cobra : MonoBehaviour
     // Método que faz a cobra crescer
     public void Crescer()
     {
-        Vector2 segmentoCauda = segmentosCobra[segmentosCobra.Count - 1];
-        segmentosCobra.Add(segmentoCauda);  // Adiciona um novo segmento à cobra
+        Transform segmentoCauda = segmentosCobra[segmentosCobra.Count - 1];
+        segmentosCobra.Add(Instantiate(segmentoPrefab, segmentoCauda.position, Quaternion.identity)); // Adiciona um novo segmento à cobra
     }
-   
+
     // Verifica se a cobra ultrapassou os limites e a reposiciona do outro lado
     private void VerificarLimites(Vector2 novaPosicao)
     {
         if (novaPosicao.x < 0)
         {
-            segmentosCobra[0] = new Vector2(GameManager.Instancia.larguraGrid - 1, novaPosicao.y);
+            segmentosCobra[0].position = new Vector2(GameManager.Instancia.larguraGrid - 1, novaPosicao.y);
         }
         else if (novaPosicao.x >= GameManager.Instancia.larguraGrid)
         {
-            segmentosCobra[0] = new Vector2(0, novaPosicao.y);
+            segmentosCobra[0].position = new Vector2(0, novaPosicao.y);
         }
 
         if (novaPosicao.y < 0)
         {
-            segmentosCobra[0] = new Vector2(novaPosicao.x, GameManager.Instancia.alturaGrid - 1);
+            segmentosCobra[0].position = new Vector2(novaPosicao.x, GameManager.Instancia.alturaGrid - 1);
         }
         else if (novaPosicao.y >= GameManager.Instancia.alturaGrid)
         {
-            segmentosCobra[0] = new Vector2(novaPosicao.x, 0);
+            segmentosCobra[0].position = new Vector2(novaPosicao.x, 0);
         }
     }
 }

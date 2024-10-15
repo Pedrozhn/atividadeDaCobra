@@ -18,14 +18,6 @@ public class Menu : MonoBehaviour
         GameManager.Instancia.DefinirVelocidadeCobra(vel);
     }
 
-<<<<<<< Updated upstream
-public void IniciarJogo()
-{
-        GameManager.Instancia.IniciarJogo();  // Chama o método de iniciar o jogo
-
-        SceneManager.LoadScene("JogoCobra");
-}
-=======
     public void IniciarJogo()
     {
         DestroyTodosObjetosNaCena();
@@ -49,5 +41,5 @@ public void IniciarJogo()
             }
         }
     }
->>>>>>> Stashed changes
+
 }

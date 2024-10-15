@@ -6,32 +6,40 @@ using UnityEngine;
 
 public class maca : MonoBehaviour
 {
-    public GameObject macaPrefab;
+    public GameObject prefabMaca;
     public Vector2 limiteMapa;
     private Cobra cobra;
+
+    public List<Vector2> segmentosCobra = new List<Vector2>();
 
     public static maca Instancia;  // Singleton
 
     private void Awake()
     {
-<<<<<<< Updated upstream
-        // Lista de todas as posições possíveis no grid
-        List<Vector2> posicoesDisponiveis = new List<Vector2>();
-        for (int x = 0; x < GameManager.Instancia.larguraGrid; x++)
-=======
-        Instancia = this;
+        if (Instancia == null)
+        {
+            Instancia = this;
+            DontDestroyOnLoad(gameObject); // Garante que a instância persista entre as cenas
+        }
+        else
+        {
+            Destroy(gameObject); // Destrói duplicatas
+            return;
+        }
+
         cobra = Cobra.Instancia;
         if (cobra == null)
->>>>>>> Stashed changes
         {
             Debug.LogError("A referência para a Cobra não foi encontrada!");
+            return;
         }
+
         RecriarMaca();  // Cria a primeira maçã
     }
+
     public void RecriarMaca()
     {
         Vector2 novaPosicao;
-
 
         // Tenta encontrar uma posição válida dentro dos limites
         do
@@ -40,10 +48,10 @@ public class maca : MonoBehaviour
         }
         while (EstaDentroDoCorpo(novaPosicao));
 
-        transform.position = novaPosicao;
+        transform.position = novaPosicao; // Define a nova posição da maçã
     }
+
     // Gera uma posição aleatória que não esteja sobre a cobra
-    
     private Vector2 GerarPosicaoAleatoria()
     {
         int x = Random.Range(0, GameManager.Instancia.larguraGrid);
@@ -53,43 +61,25 @@ public class maca : MonoBehaviour
 
     private bool EstaDentroDoCorpo(Vector2 posicao)
     {
-        if (cobra == null || cobra.segmento == null)
+        if (cobra.segmentosCobra == null || cobra.segmentosCobra.Count == 0)
         {
-            Debug.LogError("Lista de segmentos da cobra não inicializada!");
+            Debug.LogError("Lista de segmentos da cobra não foi inicializada corretamente!");
             return false;
         }
 
         // Verifica se a nova posição está dentro de algum segmento do corpo
-        foreach (Transform segmento in cobra.segmento)
+        IList list = cobra.segmentosCobra; //aqui realmente não sei explicar, o proprio inuty corrigiu :P
+        for (int i = 0; i < list.Count; i++)
         {
-            if ((Vector2)segmento.position == posicao)
+            Vector2 segmento = (Vector2)list[i];
+            if (segmento.Equals(posicao))  // Melhor forma de comparar structs
             {
-<<<<<<< Updated upstream
-                Vector2 posicao = new Vector2(x, y);
-
-                // Se a posição não estiver ocupada pela cobra, adiciona à lista de disponíveis
-                if (!Cobra.Instancia.segmentosCobra.Contains(posicao))
-                {
-                    posicoesDisponiveis.Add(posicao);
-                }
-=======
-                return true;
->>>>>>> Stashed changes
+                return true; // A posição está ocupada pela cobra
             }
         }
-<<<<<<< Updated upstream
-        // Escolhe uma posição aleatória da lista de disponíveis
-        if (posicoesDisponiveis.Count > 0)
-        {
-            novaPosicao = posicoesDisponiveis[Random.Range(0, posicoesDisponiveis.Count)];
-        }
-    }
 
-}
-    
-}
-=======
-        return false;
+
+        return false; // A posição está livre
     }
 }
->>>>>>> Stashed changes
+

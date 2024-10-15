@@ -6,26 +6,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Singleton que gerencia o estado do jogo
     public static GameManager Instancia;
-    private int larguraGrid;  // Armazena a largura do grid
-    private int alturaGrid;   // Armazena a altura do grid
-    private float velocidadeCobra;  // Armazena a velocidade da cobra
-    private void Awake()  
-    {        
+
+    public int larguraGrid;  // Armazena a largura do grid
+    public int alturaGrid;   // Armazena a altura do grid
+    public float velocidadeCobra;  // Armazena a velocidade da cobra
+    private GameObject prefabMaca;  // Prefab da maçã
+    private GameObject macaInstanciada; // Referência para a maçã instanciada
+
+  
+
+    private void Awake()
+    {
         if (Instancia == null)
-        {           
+        {
             Instancia = this;
-            DontDestroyOnLoad(gameObject); 
-     }
-    else
-     {            Destroy(gameObject);  
-    
-        } 
-    
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-<<<<<<< Updated upstream
-=======
 
     public void IniciarJogo()
     {
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
             // Instancia a maçã
             macaInstanciada = Instantiate(prefabMaca);
             // Gera e posiciona a maçã
-            macaInstanciada.GetComponent<maca>().RecriarMaca();
+            macaInstanciada.GetComponent<maca>().RecriarMaca(); // Certifique-se de que "Maca" esteja com a letra maiúscula
         }
         else if (macaInstanciada != null)
         {
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Prefab de maçã não está atribuído!");
         }
     }
->>>>>>> Stashed changes
+
     public void DefinirTamanhoGrid(int largura, int altura)
     {
         larguraGrid = largura;
@@ -59,17 +61,13 @@ public class GameManager : MonoBehaviour
         velocidadeCobra = velocidade; // Define a velocidade da cobra
     }
 
-  
-
     // Método que retorna uma posição na borda do outro lado se a cobra atravessar os limites do mapa
     public Vector2 MudarPosicao(Vector2 posicao)
     {
         if (posicao.x < 0)
             posicao.x = larguraGrid - 1;
         else if (posicao.x >= larguraGrid)
-        {
             posicao.x = 0;
-        }
 
         if (posicao.y < 0)
             posicao.y = alturaGrid - 1;
@@ -78,5 +76,4 @@ public class GameManager : MonoBehaviour
 
         return posicao;
     }
-
 }
