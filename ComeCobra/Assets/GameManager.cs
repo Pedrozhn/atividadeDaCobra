@@ -6,44 +6,54 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject prefabMaca;  // Prefab da maçã
-    private GameObject macaInstanciada;  // Referência da maçã instanciada
-
+    // Singleton que gerencia o estado do jogo
     public static GameManager Instancia;
-    public int larguraGrid;  // Armazena a largura do grid
-    public int alturaGrid;   // Armazena a altura do grid
-    public float velocidadeCobra;  // Armazena a velocidade da cobra
-
- private void Awake()  
+    private int larguraGrid;  // Armazena a largura do grid
+    private int alturaGrid;   // Armazena a altura do grid
+    private float velocidadeCobra;  // Armazena a velocidade da cobra
+    private void Awake()  
     {        
         if (Instancia == null)
         {           
             Instancia = this;
             DontDestroyOnLoad(gameObject); 
-         }
-           else
-            {           
-             Destroy(gameObject);  
+     }
+    else
+     {            Destroy(gameObject);  
     
-            } 
+        } 
     
     }
+<<<<<<< Updated upstream
+=======
 
     public void IniciarJogo()
     {
-        if (macaInstanciada == null)  // Garante que a maçã não seja instanciada duas vezes
+        // Verifica se o prefab está definido e se a maçã não foi instanciada
+        if (prefabMaca != null && macaInstanciada == null)
         {
+            // Instancia a maçã
             macaInstanciada = Instantiate(prefabMaca);
-            macaInstanciada.GetComponent<maca>().GerarEPosicionar();
+            // Gera e posiciona a maçã
+            macaInstanciada.GetComponent<maca>().RecriarMaca();
+        }
+        else if (macaInstanciada != null)
+        {
+            Debug.Log("A maçã já foi instanciada.");
+        }
+        else
+        {
+            Debug.LogError("Prefab de maçã não está atribuído!");
         }
     }
+>>>>>>> Stashed changes
     public void DefinirTamanhoGrid(int largura, int altura)
     {
         larguraGrid = largura;
         alturaGrid = altura;
+        maca.Instancia.limiteMapa = new Vector2(largura / 2, altura / 2);  // Define os limites da maçã
     }
-    
+
     public void DefinirVelocidadeCobra(float velocidade)
     {
         velocidadeCobra = velocidade; // Define a velocidade da cobra
