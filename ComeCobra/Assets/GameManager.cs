@@ -24,12 +24,36 @@ public class GameManager : MonoBehaviour
         } 
     
     }
+<<<<<<< Updated upstream
+=======
+
+    public void IniciarJogo()
+    {
+        // Verifica se o prefab está definido e se a maçã não foi instanciada
+        if (prefabMaca != null && macaInstanciada == null)
+        {
+            // Instancia a maçã
+            macaInstanciada = Instantiate(prefabMaca);
+            // Gera e posiciona a maçã
+            macaInstanciada.GetComponent<maca>().RecriarMaca();
+        }
+        else if (macaInstanciada != null)
+        {
+            Debug.Log("A maçã já foi instanciada.");
+        }
+        else
+        {
+            Debug.LogError("Prefab de maçã não está atribuído!");
+        }
+    }
+>>>>>>> Stashed changes
     public void DefinirTamanhoGrid(int largura, int altura)
     {
         larguraGrid = largura;
         alturaGrid = altura;
+        maca.Instancia.limiteMapa = new Vector2(largura / 2, altura / 2);  // Define os limites da maçã
     }
-    
+
     public void DefinirVelocidadeCobra(float velocidade)
     {
         velocidadeCobra = velocidade; // Define a velocidade da cobra
