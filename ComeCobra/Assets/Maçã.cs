@@ -6,42 +6,78 @@ using UnityEngine;
 
 public class maca : MonoBehaviour
 {
-    private Vector2 novaPosicao; // Variável que armazena a nova posição da comida
+    public GameObject macaPrefab;
+    public Vector2 limiteMapa;
+    private Cobra cobra;
 
-    // Gera uma posição aleatória que não esteja sobre a cobra
-    public void GerarPosicao()
+    public static maca Instancia;  // Singleton
+
+    private void Awake()
     {
+<<<<<<< Updated upstream
         // Lista de todas as posições possíveis no grid
         List<Vector2> posicoesDisponiveis = new List<Vector2>();
-
-        // Preenche a lista com todas as posições do grid
         for (int x = 0; x < GameManager.Instancia.larguraGrid; x++)
+=======
+        Instancia = this;
+        cobra = Cobra.Instancia;
+        if (cobra == null)
+>>>>>>> Stashed changes
         {
-            for (int y = 0; y < GameManager.Instancia.alturaGrid; y++)
+            Debug.LogError("A referência para a Cobra não foi encontrada!");
+        }
+        RecriarMaca();  // Cria a primeira maçã
+    }
+    public void RecriarMaca()
+    {
+        Vector2 novaPosicao;
+
+
+        // Tenta encontrar uma posição válida dentro dos limites
+        do
+        {
+            novaPosicao = GerarPosicaoAleatoria();
+        }
+        while (EstaDentroDoCorpo(novaPosicao));
+
+        transform.position = novaPosicao;
+    }
+    // Gera uma posição aleatória que não esteja sobre a cobra
+    
+    private Vector2 GerarPosicaoAleatoria()
+    {
+        int x = Random.Range(0, GameManager.Instancia.larguraGrid);
+        int y = Random.Range(0, GameManager.Instancia.alturaGrid);
+        return new Vector2(x, y);
+    }
+
+    private bool EstaDentroDoCorpo(Vector2 posicao)
+    {
+        if (cobra == null || cobra.segmento == null)
+        {
+            Debug.LogError("Lista de segmentos da cobra não inicializada!");
+            return false;
+        }
+
+        // Verifica se a nova posição está dentro de algum segmento do corpo
+        foreach (Transform segmento in cobra.segmento)
+        {
+            if ((Vector2)segmento.position == posicao)
             {
+<<<<<<< Updated upstream
                 Vector2 posicao = new Vector2(x, y);
 
-                // Variável para indicar se a posição está ocupada
-                bool posicaoOcupada = false;
-
-                
-                foreach (var segmento in Cobra.Instancia.segmentosCobra)
-                {
-                    if (segmento.x == posicao.x && segmento.y == posicao.y)
-                    {
-                        posicaoOcupada = true;
-                      
-                    }
-                }
-
                 // Se a posição não estiver ocupada pela cobra, adiciona à lista de disponíveis
-                if (!posicaoOcupada)
+                if (!Cobra.Instancia.segmentosCobra.Contains(posicao))
                 {
                     posicoesDisponiveis.Add(posicao);
                 }
+=======
+                return true;
+>>>>>>> Stashed changes
             }
         }
-
+<<<<<<< Updated upstream
         // Escolhe uma posição aleatória da lista de disponíveis
         if (posicoesDisponiveis.Count > 0)
         {
@@ -49,17 +85,11 @@ public class maca : MonoBehaviour
         }
     }
 
-    // Posiciona a comida na posição gerada e armazenada em `novaPosicao`.
-    public void Posicionar()
-    {
-        transform.position = new Vector3(novaPosicao.x, novaPosicao.y, 0);
-    }
-
-    // Método chamado para gerar e posicionar a comida
-    public void GerarEPosicionar()
-    {
-        GerarPosicao();  // Gera uma nova posição válida
-        Posicionar();    // Posiciona a maçã na nova posição
-    }
-
 }
+    
+}
+=======
+        return false;
+    }
+}
+>>>>>>> Stashed changes
