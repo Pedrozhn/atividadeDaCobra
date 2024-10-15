@@ -46,6 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1572998ea2f2a504d8a2c26cdef4bf22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocidade: 5
+  distanciaEntreSegmentos: 0.5
+  direcao: {x: 1, y: 0}
+  limiteMapa: {x: 0, y: 0}
+  corpoPrefab: {fileID: 5988045609411408516, guid: a71c58da709a41b47acf13da115eb6b2, type: 3}
+  segmentoPrefab: {fileID: 4730523412898979641, guid: a71c58da709a41b47acf13da115eb6b2, type: 3}
+  segmento: []
 --- !u!212 &1824129967085616197
 SpriteRenderer:
   m_ObjectHideFlags: 0
